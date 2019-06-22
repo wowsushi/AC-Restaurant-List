@@ -24,36 +24,87 @@ db.once('open', () => {
 const Restaurant = require('./models/restaurant.js')
 
 app.get('/', (req, res) => {
-  Restaurant.find((err, restaurant) => {
+  Restaurant.find((err, restaurants) => {
     if (err) return console.log(err)
-    return res.render('index', { restaurants: restaurant })
+    return res.render('index', { restaurants: restaurants })
   })
 })
 
 app.get('/restaurants/new', (req, res) => {
-  const id = req.params.id
-  const restaurant = restaurantList.results.find( restaurant => {
-    return restaurant.id.toString() === id
+  res.render('new')
+})
+
+app.post('/restaurants', (req, res) => {
+  console.log(Restaurant)
+  const restaurant = new Restaurant({
+    name: req.body.name,
+    category: req.body.category,
+    image: req.body.image,
+    location: req.body.location,
+    phone: req.body.phone,
+    description: req.body.description,
+    rating: req.body.rating
   })
 
-  res.render('show', { restaurant: restaurant })
+  restaurant.save(err => {
+    if (err) return console.log(err)
+    return res.redirect('/')
+  })
+
 })
 
 app.get('/restaurants/:id', (req, res) => {
-  const id = req.params.id
-  const restaurant = restaurantList.results.find( restaurant => {
-    return restaurant.id.toString() === id
+  Restaurant.findById(req.params.id, (err, restaurant) => {
+    if (err) return console.log(err)
+    return res.render('show', { restaurant: restaurant })
   })
+})
 
-  res.render('show', { restaurant: restaurant })
+app.get('/restaurants/:id/edit', (req, res) => {
+  Restaurant.findById(req.params.id, (err, restaurant) => {
+    if (err) return console.log(err)
+    return res.render('edit', {
+      restaurant: restaurant,
+    })
+  })
+})
+
+app.post('/restaurants/:id', (req, res) => {
+  Restaurant.findById(req.params.id, (err, restaurant) => {
+    if (err) return console.log(err)
+    restaurant.name = req.body.name,
+    restaurant.category = req.body.category,
+    restaurant.image = req.body.image,
+    restaurant.location = req.body.location,
+    restaurant.phone = req.body.phone,
+    restaurant.description = req.body.description,
+    restaurant.rating = req.body.rating
+
+    restaurant.save(err => {
+      if (err) return console.log(err)
+      return res.redirect(`/restaurants/${req.params.id}`)
+    })
+  })
+})
+
+app.post('/restaurants/:id/delete', (req, res) => {
+  Restaurant.findById(req.params.id, (err, restaurant) => {
+    if (err) return console.log(err)
+    restaurant.remove(err => {
+      return res.redirect('/')
+    })
+  })
 })
 
 app.get('/search', (req, res) => {
   const keyword = req.query.keyword
-  const matchedRestaurant = restaurantList.results.filter( restaurant => {
-    return restaurant.name.toLowerCase().includes(keyword.toLowerCase())
+  Restaurant.find((err, restaurants) => {
+    if (err) return console.log(err)
+    const matchedRestaurant = restaurants.filter( restaurant => {
+      return restaurant.name.toLowerCase().includes(keyword.toLowerCase())
+    })
+    res.render('index', { restaurants: matchedRestaurant, keyword: keyword })
   })
-  res.render('index', { restaurants: matchedRestaurant, keyword: keyword })
 })
 
 app.listen(port, () => {

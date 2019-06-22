@@ -2,10 +2,6 @@ const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
 const restaurantSchema = new Schema({
-  id: {
-    type: Number,
-    required: true,
-  },
   name: {
     type: String,
     required: true,
@@ -32,11 +28,11 @@ const restaurantSchema = new Schema({
   },
   google_map: {
     type: String,
-    required: true,
+    required: false,
   },
   rating: {
-    type: Number,
-    required: true,
+    type: String,
+    required: false,
   },
   description: {
     type: String,

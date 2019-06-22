@@ -1,0 +1,80 @@
+<h1 class="mb-1 restaurant-show-title">新增餐廳</h1>
+
+<form action="/restaurants" method="POST">
+  <div class="container">
+    <div class="row">
+      <div class="col-12 col-md-10 mx-auto">
+
+        <div class="form-group row text-secondary">
+          <label for="name" class="col-sm-2 col-form-label">
+           <i class="fas fa-home pr-2"></i>
+            店名：</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" placeholder="請輸入店名" name="name" required>
+          </div>
+        </div>
+
+        <div class="form-group row text-secondary">
+          <label for="name" class="col-sm-2 col-form-label">
+           <i class="fas fa-utensils pr-2"></i>
+            類別：</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" placeholder="請輸入類別" name="category" required>
+          </div>
+        </div>
+
+        <div class="form-group row text-secondary">
+          <label for="name" class="col-sm-2 col-form-label">
+           <i class="fas fa-map-marker-alt pr-2"></i>
+            地址：</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" placeholder="請輸入餐廳地址" name="location" required>
+          </div>
+        </div>
+
+        <div class="form-group row text-secondary">
+          <label for="name" class="col-sm-2 col-form-label">
+           <i class="fas fa-star pr-2"></i>
+            評分：</label>
+          <div class="col-sm-10">
+            <input type="number" class="form-control" min="0" max="5" step="0.1" name="rating" placeholder="請輸入0~5"  required>
+          </div>
+        </div>
+
+        <div class="form-group row text-secondary">
+          <label for="name" class="col-sm-2 col-form-label">
+           <i class="fas fa-mobile-alt pr-2"></i>
+            電話：</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" placeholder="請輸入餐廳電話" name="phone" required>
+          </div>
+        </div>
+
+        <div class="form-group row text-secondary">
+          <label for="name" class="col-sm-2 col-form-label">
+           <i class="fas fa-photo-video pr-2"></i>
+            圖片：</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" placeholder="請輸入參考圖片網址" name="image" required>
+          </div>
+        </div>
+
+        <div class="form-group row text-secondary">
+          <label for="name" class="col-sm-2 col-form-label">
+           <i class="fas fa-sms pr-2"></i>
+            敘述：</label>
+          <div class="col-sm-10">
+            <textarea type="text" class="form-control" placeholder="請輸入餐廳簡介" rows="6" name="description" required></textarea>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="form-group row d-flex justify-content-center m-3">
+    <a href="/" class="btn btn-info mr-3" role="button">返回</a>
+    <form class="mr-3" action="/restaurants/" method="POST">
+      <button type="submit" class="btn btn-warning">新增</button>
+    </form>
+  </div>
+</form>
+
