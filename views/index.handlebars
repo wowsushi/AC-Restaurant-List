@@ -21,8 +21,8 @@
     <div class="col-md-10 col-12 mx-auto">
       <div class="card-columns">
         {{#each restaurants}}
-          <a href="/restaurants/{{ this.id }}" class="text-secondary">
-            <div class="card mb-3">
+          <div class="card mb-3">
+            <a href="/restaurants/{{ this.id }}" class="text-secondary">
               <img class="card-img-top" src={{ this.image }} alt={{ this.name }}>
               <div class="card-body p-3">
                 <h6 class="card-title mb-1">{{ this.name }}</h6>
@@ -36,8 +36,15 @@
                   <i class="fas fa-star fa-xs"></i>
                 </span>
               </div>
+            </a>
+              <div class="card-footer text-muted d-flex justify-content-between">
+                <a href="/restaurants/{{ this.id }}/edit" class="btn btn-info" role="button">編輯</a>
+                <a href="/restaurants/{{ this.id }}" class="btn btn-info" role="button">查看詳細</a>
+                <form action="/restaurants/{{ this.id }}/delete" method="POST">
+                  <button type="submit" class="btn btn-danger">刪除</button>
+                </form>
+              </div>
             </div>
-          </a>
         {{/each}}
       </div>
     </div>
