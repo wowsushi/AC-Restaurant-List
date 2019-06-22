@@ -55,7 +55,15 @@ header {
 }
 
 .card {
+  position: relative;
+  top: 0;
   box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+  transition: all .1s linear;
+}
+
+.card:hover {
+  top: -5px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 .card img{

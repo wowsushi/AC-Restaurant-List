@@ -15,36 +15,51 @@
   </div>
 </div>
 
+
 <!-- restaurant list -->
 <div class="container mt-5">
+  <div class="dropdown d-flex justify-content-end mr-5 pr-5 mb-4">
+    <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      選擇排序
+    </button>
+    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+      <a class="dropdown-item" href="?name=asc">A -> Z</a>
+      <a class="dropdown-item" href="?name=desc">Z -> A</a>
+      <a class="dropdown-item" href="?category=asc">類別</a>
+      <a class="dropdown-item" href="?location=asc">地區</a>
+      <a class="dropdown-item" href="?rating=desc">評分</a>
+    </div>
+  </div>
   <div class="row">
     <div class="col-md-10 col-12 mx-auto">
-      <div class="card-columns">
+      <div class="card-group">
         {{#each restaurants}}
-          <div class="card mb-3">
-            <a href="/restaurants/{{ this.id }}" class="text-secondary">
-              <img class="card-img-top" src={{ this.image }} alt={{ this.name }}>
-              <div class="card-body p-3">
-                <h6 class="card-title mb-1">{{ this.name }}</h6>
+          <div class="col-4">
+            <div class="card mb-3">
+              <a href="/restaurants/{{ this.id }}" class="text-secondary">
+                <img class="card-img-top" src={{ this.image }} alt={{ this.name }}>
+                <div class="card-body p-3">
+                  <h6 class="card-title mb-1">{{ this.name }}</h6>
 
-                <div class="restaurant-category mb-1">
-                  <i class="fas fa-utensils pr-2"></i> {{ this.category}}
+                  <div class="restaurant-category mb-1">
+                    <i class="fas fa-utensils pr-2"></i> {{ this.category}}
+                  </div>
+
+                  <span class="badge badge-pill badge-danger font-weight-normal">
+                    {{ this.rating}}
+                    <i class="fas fa-star fa-xs"></i>
+                  </span>
                 </div>
-
-                <span class="badge badge-pill badge-danger font-weight-normal">
-                  {{ this.rating}}
-                  <i class="fas fa-star fa-xs"></i>
-                </span>
+              </a>
+                <div class="card-footer text-muted d-flex justify-content-between">
+                  <a href="/restaurants/{{ this.id }}/edit" class="btn btn-info" role="button">編輯</a>
+                  <a href="/restaurants/{{ this.id }}" class="btn btn-info" role="button">查看詳細</a>
+                  <form action="/restaurants/{{ this.id }}/delete?_method=DELETE" method="POST">
+                    <button type="submit" class="btn btn-danger">刪除</button>
+                  </form>
+                </div>
               </div>
-            </a>
-              <div class="card-footer text-muted d-flex justify-content-between">
-                <a href="/restaurants/{{ this.id }}/edit" class="btn btn-info" role="button">編輯</a>
-                <a href="/restaurants/{{ this.id }}" class="btn btn-info" role="button">查看詳細</a>
-                <form action="/restaurants/{{ this.id }}/delete" method="POST">
-                  <button type="submit" class="btn btn-danger">刪除</button>
-                </form>
-              </div>
-            </div>
+          </div>
         {{/each}}
       </div>
     </div>

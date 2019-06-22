@@ -44,7 +44,7 @@
 <div class="d-flex justify-content-center m-3">
   <a href="/" class="btn btn-info mr-3" role="button">返回</a>
   <a href="/restaurants/{{ restaurant.id }}/edit" class="btn btn-info mr-3" role="button">編輯</a>
-  <form class="mr-3" action="/restaurants/{{ restaurant.id }}/delete" method="POST">
+  <form class="mr-3" action="/restaurants/{{ restaurant.id }}/delete?_method=DELETE" method="POST">
     <button type="submit" class="btn btn-danger">刪除</button>
   </form>
 </div>
