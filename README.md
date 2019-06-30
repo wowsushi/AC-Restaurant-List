@@ -22,7 +22,7 @@ You may find a message "Express is listening on http://localhost:3000" on the te
 + User can go back to the most top of page by click button at bottom-right.
 
 ## Demo
-![demo](http://g.recordit.co/qxuj6vQacn.gif "web")
+![demo](https://github.com/wowsushi/AC-Restaurant-List/blob/master/demo.PNG?raw=true "web")
 
 ## Author
 [Betty Chen](https://github.com/wowsushi)
