@@ -16,7 +16,8 @@ router.post('/', (req, res) => {
     location: req.body.location,
     phone: req.body.phone,
     description: req.body.description,
-    rating: req.body.rating
+    rating: req.body.rating,
+    userId: req.user._id
   })
 
   restaurant.save(err => {
@@ -27,14 +28,14 @@ router.post('/', (req, res) => {
 })
 
 router.get('/:id', authenticated, (req, res) => {
-  Restaurant.findById(req.params.id, (err, restaurant) => {
+  Restaurant.findOne({ _id: req.params._id, userId: req.user._id }, (err, restaurant) => {
     if (err) return console.log(err)
     return res.render('show', { restaurant: restaurant })
   })
 })
 
 router.get('/:id/edit', authenticated, (req, res) => {
-  Restaurant.findById(req.params.id, (err, restaurant) => {
+  Restaurant.findOne({ _id: req.params._id, userId: req.user._id }, (err, restaurant) => {
     if (err) return console.log(err)
     return res.render('edit', {
       restaurant: restaurant,
@@ -43,7 +44,7 @@ router.get('/:id/edit', authenticated, (req, res) => {
 })
 
 router.put('/:id', (req, res) => {
-  Restaurant.findById(req.params.id, (err, restaurant) => {
+  Restaurant.findOne({ _id: req.params._id, userId: req.user._id }, (err, restaurant) => {
     if (err) return console.log(err)
     restaurant.name = req.body.name,
     restaurant.category = req.body.category,
@@ -61,7 +62,7 @@ router.put('/:id', (req, res) => {
 })
 
 router.delete('/:id/delete', (req, res) => {
-  Restaurant.findById(req.params.id, (err, restaurant) => {
+  Restaurant.findOne({ _id: req.params._id, userId: req.user._id }, (err, restaurant) => {
     if (err) return console.log(err)
     restaurant.remove(err => {
       return res.redirect('/')

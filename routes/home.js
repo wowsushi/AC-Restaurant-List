@@ -23,6 +23,9 @@ router.get('/', authenticated, (req, res) => {
   const chTypeName = sortTypes[sortBy].display
 
   Restaurant.find({
+    userId: req.user._id
+  })
+  .find({
     "name": {
       "$regex": new RegExp(searchTerm, 'i')
     }
