@@ -9,22 +9,33 @@
   <link rel="stylesheet" href="/stylesheets/stylesheet.css">
 </head>
 <body>
-  <header>
-    <!-- navigation -->
-    <nav class="navbar navbar-light bg-light">
-      <div class="container">
-        <a class="navbar-brand" href="/">
-            <img src="https://assets-lighthouse.s3.amazonaws.com/uploads/image/file/6227/restaurant-list-logo.png" width="30" height="30" class="d-inline-block align-top" alt="好。吃">
-            我的餐廳清單
-        </a>
-        <a href="/restaurants/new" class="text-secondary">
-           <button type="button" class="btn btn-info">建立新餐廳</button>
-        </a>
-      </div>
-    </nav>
+    <header>
+      <!-- navigation -->
+      <nav class="navbar navbar-light bg-light">
+        <div class="container">
+          <a class="navbar-brand" href="/">
+              <img src="https://assets-lighthouse.s3.amazonaws.com/uploads/image/file/6227/restaurant-list-logo.png" width="30" height="30" class="d-inline-block align-top" alt="好。吃">
+              我的餐廳清單
+          </a>
+          <div class="d-flex justify-content-end">
+            {{#if isAuthenticated}}
+              <a href="/restaurants/new" class="text-secondary mr-3">
+                <button type="button" class="btn btn-success">建立新餐廳</button>
+              </a>
+              <a href="/users/logout" class="text-secondary mr-3">
+                <button type="button" class="btn btn-info">登出</button>
+              </a>
+            {{/if}}
 
-    <div class="banner"></div>
-  </header>
+          </div>
+        </div>
+      </nav>
+
+      {{#if isAuthenticated}}
+        <div class="banner"></div>
+      {{/if}}
+    </header>
+
   {{{ body }}}
 
   <button onclick="topFunction()" id="backToTop" title="Go to top"><i class="fas fa-arrow-circle-up"></i></button>

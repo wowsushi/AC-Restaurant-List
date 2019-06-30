@@ -1,6 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const Restaurant = require('../models/restaurant')
+const { authenticated } = require('../config/auth')
 
 const sortTypes = {
   name: {
@@ -17,9 +18,10 @@ const sortTypes = {
   }
 }
 
-router.get('/', (req, res) => {
+router.get('/', authenticated, (req, res) => {
   const { searchTerm, direction = 'asc', sortBy = 'name' } = req.query
   const chTypeName = sortTypes[sortBy].display
+
   Restaurant.find({
     "name": {
       "$regex": new RegExp(searchTerm, 'i')
