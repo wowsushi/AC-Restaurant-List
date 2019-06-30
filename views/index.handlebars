@@ -5,7 +5,7 @@
       <form action="/search">
         <h4 class="mb-2">尋找餐廳：</h4>
         <div class="input-group">
-          <input type="text" name="keyword" class="form-control" placeholder="輸入餐廳、分類" aria-label="Restaurant Name..." value="{{ keyword }}" aria-describedby="search-button">
+          <input type="text" name="searchTerm" class="form-control" placeholder="輸入餐廳、分類" aria-label="Restaurant Name..." value="{{ searchTerm }}" aria-describedby="search-button">
           <div class="input-group-append">
             <button class="btn btn-major" type="submit" id="search-button"><i class="fas fa-search"></i></button>
           </div>
@@ -18,18 +18,29 @@
 
 <!-- restaurant list -->
 <div class="container mt-5">
-  <div class="dropdown d-flex justify-content-end mr-5 pr-5 mb-4">
-    <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-      選擇排序
-    </button>
-    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-      <a class="dropdown-item" href="?name=asc">A -> Z</a>
-      <a class="dropdown-item" href="?name=desc">Z -> A</a>
-      <a class="dropdown-item" href="?category=asc">類別</a>
-      <a class="dropdown-item" href="?location=asc">地區</a>
-      <a class="dropdown-item" href="?rating=desc">評分</a>
+  <div class="search-content d-flex justify-content-end">
+    <div class="content-control ">
+      <span>Sort Direction</span>
+      <div class="d-flex justify-content-end mr-5 pr-5 mb-4">
+        <a href="/search/?searchTerm={{searchTerm}}&direction=asc&sortBy={{sortBy}}" role="button" class="btn btn-secondary mr-2"><i class="fas fa-chevron-up btn-secondary"></i></a>
+        <a href="/search/?searchTerm={{searchTerm}}&direction=desc&sortBy={{sortBy}}" role="button" class="btn btn-secondary mr-2"><i class="fas fa-chevron-down btn-secondary"></i></a>
+      </div>
+    </div>
+    <div class="content-control">
+      <span>Sort By</span>
+      <div class="dropdown d-flex justify-content-end mr-5 pr-5 mb-4">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          {{chTypeName}}
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+          {{#each sortTypes}}
+             <a class="dropdown-item" href="/search/?searchTerm={{../searchTerm}}&direction={{../direction}}&sortBy={{@key}}">{{this.display}}</a>
+          {{/each}}
+        </div>
+      </div>
     </div>
   </div>
+
   <div class="row">
     <div class="col-md-10 col-12 mx-auto">
       <div class="card-group">

@@ -8,11 +8,10 @@ router.get('/new', (req, res) => {
 })
 
 router.post('/', (req, res) => {
-  console.log(Restaurant)
   const restaurant = new Restaurant({
     name: req.body.name,
     category: req.body.category,
-    image: req.body.image,
+    image: req.body.image || 'https://www.lauriloewenberg.com/wp-content/uploads/2019/04/No_Image_Available.jpg',
     location: req.body.location,
     phone: req.body.phone,
     description: req.body.description,

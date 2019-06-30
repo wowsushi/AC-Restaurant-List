@@ -12,11 +12,6 @@ app.use(express.static('public'))
 app.use(bodyParser.urlencoded({extended: true}))
 app.use(methodOverride('_method'))
 
-app.use('/', require('./routes/home'))
-app.use('/search', require('./routes/search'))
-app.use('/restaurants', require('./routes/restaurants'))
-
-
 mongoose.connect('mongodb://localhost/restaurant', {useNewUrlParser: true})
 const db = mongoose.connection
 
@@ -29,6 +24,10 @@ db.once('open', () => {
 })
 
 const Restaurant = require('./models/restaurant.js')
+
+app.use('/', require('./routes/home'))
+app.use('/search', require('./routes/search'))
+app.use('/restaurants', require('./routes/restaurants'))
 
 app.listen(port, () => {
   console.log(`Express is listening on http://localhost:${port}`)

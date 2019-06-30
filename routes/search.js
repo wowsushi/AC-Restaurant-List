@@ -2,14 +2,32 @@ const express = require('express')
 const router = express.Router()
 const Restaurant = require('../models/restaurant')
 
+const sortTypes = {
+  name: {
+    display: '餐廳名字'
+  },
+  category: {
+    display: '餐廳類別'
+  },
+  location: {
+    display: '餐廳地區'
+  },
+  rating: {
+    display: '餐廳評分'
+  }
+}
+
 router.get('/', (req, res) => {
-  const keyword = req.query.keyword
-  Restaurant.find((err, restaurants) => {
-    if (err) return console.log(err)
-    const matchedRestaurant = restaurants.filter( restaurant => {
-      return restaurant.name.toLowerCase().includes(keyword.toLowerCase())
-    })
-    res.render('index', { restaurants: matchedRestaurant, keyword: keyword })
+  const { searchTerm, direction = 'asc', sortBy = 'name' } = req.query
+  const chTypeName = sortTypes[sortBy].display
+  Restaurant.find({
+    "name": {
+      "$regex": new RegExp(searchTerm, 'i')
+    }
+  })
+  .sort({ [sortBy]: direction })
+  .exec((err, restaurants) => {
+    res.render('index', { restaurants, searchTerm, direction, sortBy, sortTypes, chTypeName })
   })
 })
 
