@@ -25,9 +25,7 @@ db.once('open', () => {
 
 const Restaurant = require('./models/restaurant.js')
 
-app.use('/', require('./routes/home'))
-app.use('/search', require('./routes/search'))
-app.use('/restaurants', require('./routes/restaurants'))
+app.use('/', require('./routes/index'))
 
 app.listen(port, () => {
   console.log(`Express is listening on http://localhost:${port}`)
