@@ -8,12 +8,12 @@ const User = require('../models/user')
 
 module.exports = passport => {
   passport.use(
-    new LocalStrategy({ usernameField: 'email' }, (email, password, done) => {
+    new LocalStrategy({ usernameField: 'email', passReqToCallback: true }, (req, email, password, done) => {
       User.findOne({
         email: email
       }).then(user => {
         if (!user) {
-          return done(null, false, { message: 'That email is not registered'})
+          return done(null, false, req.flash('error_msg', '輸入的email未註冊'))
         }
 
         bcrypt.compare(password, user.password, (err, isMatch) => {
@@ -21,7 +21,7 @@ module.exports = passport => {
           if (isMatch) {
             return done(null, user)
           } else {
-            return done(null, false, { message: 'Email or password incorrect'})
+            return done(null, false, req.flash('error_msg', '輸入的 email 或 password 錯誤'))
           }
         })
       })
